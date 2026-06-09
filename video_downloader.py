@@ -85,7 +85,7 @@ class VideoDownloaderGUI:
         dur_str = f"{dur//60}:{dur%60:02d}" if dur else "?"
         self.status.config(text=f"📹 {title[:60]}... | ⏱ {dur_str}")
     
-    def download(self):
+        def download(self):
         url = self.url_entry.get().strip()
         quality = self.quality_var.get()
         
@@ -104,6 +104,9 @@ class VideoDownloaderGUI:
                 'format': fmt,
                 'merge_output_format': 'mp4',
                 'quiet': True,
+                # Добавьте это для обхода защиты:
+                'cookiefile': 'cookies.txt',
+                'extractor_args': {'youtube': {'skip': ['dash', 'hls']}},
             }
             
             try:
